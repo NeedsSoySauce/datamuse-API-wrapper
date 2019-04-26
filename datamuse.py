@@ -7,12 +7,12 @@ import urllib.request
 import urllib.parse
 import json
 
-ENDPOINTS = (
+ENDPOINTS = set([
     'words',
     'sug'
-)
+])
 
-QUERY_PARAMATERS = (
+QUERY_PARAMATERS = set([
     'ml',
     'sl',
     'sp',
@@ -39,15 +39,15 @@ QUERY_PARAMATERS = (
     'md',
     'qe',
     'ipa'
-)
+])
 
-METADATA_FLAGS = (
+METADATA_FLAGS = set([
     'd',
     'p',
     's',
     'r',
     'f'
-)
+])
 
 
 def _validate_params(endpoint='words', **kwargs):
@@ -107,7 +107,6 @@ def request(endpoint='words', **kwargs):
         kwargs[param] = str(kwargs[param])
 
     url = _create_URL(endpoint, **kwargs)
-    print(url)
 
     results = urllib.request.urlopen(url).read()
     results = json.loads(results)
